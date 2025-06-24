@@ -1,0 +1,393 @@
+{
+  "phases": [
+    {
+      "phase_id": 1,
+      "name": "Honey Infiltration",
+      "description": "Lure the enemy with incomplete information → Entry into honeydrone network",
+      "min_duration": 60,
+      "max_duration": 300,
+      "transition_conditions": [
+        {
+          "condition_type": "event",
+          "condition_value": "honey_drone_accessed",
+          "operator": "eq",
+          "timeout_seconds": 300
+        },
+        {
+          "condition_type": "metric",
+          "condition_value": {"network_stability": 0.8},
+          "operator": "gte"
+        },
+        {
+          "condition_type": "time",
+          "condition_value": 300,
+          "operator": "gte"
+        }
+      ],
+      "required_components": ["honeydrone_network", "decoy_services"],
+      "mtd_enabled": false,
+      "honeypot_enabled": true,
+      "phase_actions": [
+        {
+          "action": "deploy_decoy_drones",
+          "parameters": {
+            "count": 3,
+            "vulnerability_level": "high",
+            "visibility": "obvious"
+          }
+        },
+        {
+          "action": "broadcast_incomplete_data",
+          "parameters": {
+            "data_accuracy": 0.6,
+            "transmission_power": "high"
+          }
+        }
+      ]
+    },
+    {
+      "phase_id": 2,
+      "name": "Enemy Detection & Attack",
+      "description": "Honeydrone detected → Attack triggered",
+      "min_duration": 30,
+      "max_duration": 180,
+      "transition_conditions": [
+        {
+          "condition_type": "event",
+          "condition_value": "attack_initiated",
+          "operator": "eq"
+        },
+        {
+          "condition_type": "metric",
+          "condition_value": {"attack_count": 1},
+          "operator": "gte"
+        },
+        {
+          "condition_type": "time",
+          "condition_value": 180,
+          "operator": "gte"
+        }
+      ],
+      "required_components": ["attack_detector", "logging_system"],
+      "mtd_enabled": false,
+      "honeypot_enabled": true,
+      "phase_actions": [
+        {
+          "action": "enable_attack_logging",
+          "parameters": {
+            "log_level": "detailed",
+            "capture_packets": true,
+            "record_behaviors": true
+          }
+        },
+        {
+          "action": "maintain_vulnerability",
+          "parameters": {
+            "resistance_level": "minimal",
+            "allow_penetration": true
+          }
+        }
+      ]
+    },
+    {
+      "phase_id": 3,
+      "name": "Information Reversing",
+      "description": "Reverse attack logs → Extract cyber threat intelligence",
+      "min_duration": 45,
+      "max_duration": 240,
+      "transition_conditions": [
+        {
+          "condition_type": "event",
+          "condition_value": "cti_analysis_complete",
+          "operator": "eq"
+        },
+        {
+          "condition_type": "metric",
+          "condition_value": {"cti_collected": 5},
+          "operator": "gte"
+        },
+        {
+          "condition_type": "time",
+          "condition_value": 240,
+          "operator": "gte"
+        }
+      ],
+      "required_components": ["cti_analyzer", "mitre_mapper"],
+      "mtd_enabled": false,
+      "honeypot_enabled": true,
+      "phase_actions": [
+        {
+          "action": "analyze_attack_patterns",
+          "parameters": {
+            "analysis_depth": "deep",
+            "mitre_mapping": true,
+            "ioc_extraction": true
+          }
+        },
+        {
+          "action": "generate_threat_intelligence",
+          "parameters": {
+            "confidence_threshold": 0.7,
+            "correlate_attacks": true
+          }
+        }
+      ]
+    },
+    {
+      "phase_id": 4,
+      "name": "MTD Honey Deployment",
+      "description": "Redeploy honeydrones based on extracted intelligence",
+      "min_duration": 60,
+      "max_duration": 200,
+      "transition_conditions": [
+        {
+          "condition_type": "event",
+          "condition_value": "mtd_deployment_complete",
+          "operator": "eq"
+        },
+        {
+          "condition_type": "metric",
+          "condition_value": {"mtd_activations": 1},
+          "operator": "gte"
+        },
+        {
+          "condition_type": "time",
+          "condition_value": 200,
+          "operator": "gte"
+        }
+      ],
+      "required_components": ["mtd_engine", "network_manager"],
+      "mtd_enabled": true,
+      "honeypot_enabled": true,
+      "phase_actions": [
+        {
+          "action": "activate_mtd_policies",
+          "parameters": {
+            "policy_strength": "medium",
+            "shuffle_frequency": 30,
+            "diversification_level": "high"
+          }
+        },
+        {
+          "action": "redeploy_honeydrones",
+          "parameters": {
+            "new_positions": "dynamic",
+            "vulnerability_profile": "adaptive",
+            "decoy_factor": 0.8
+          }
+        }
+      ]
+    },
+    {
+      "phase_id": 5,
+      "name": "Coordinated Flight",
+      "description": "Prepare joint mission between real and honey drones",
+      "min_duration": 90,
+      "max_duration": 300,
+      "transition_conditions": [
+        {
+          "condition_type": "event",
+          "condition_value": "coordination_established",
+          "operator": "eq"
+        },
+        {
+          "condition_type": "metric",
+          "condition_value": {"network_stability": 0.9},
+          "operator": "gte"
+        },
+        {
+          "condition_type": "time",
+          "condition_value": 300,
+          "operator": "gte"
+        }
+      ],
+      "required_components": ["fanet_coordinator", "mission_planner"],
+      "mtd_enabled": true,
+      "honeypot_enabled": true,
+      "phase_actions": [
+        {
+          "action": "synchronize_flight_patterns",
+          "parameters": {
+            "coordination_protocol": "distributed",
+            "sync_tolerance": 5,
+            "formation_type": "adaptive"
+          }
+        },
+        {
+          "action": "prepare_mission_execution",
+          "parameters": {
+            "mission_priority": "balanced",
+            "security_level": "high"
+          }
+        }
+      ]
+    },
+    {
+      "phase_id": 6,
+      "name": "Second Detection & Attack",
+      "description": "Trigger detection and engagement after redeployment",
+      "min_duration": 45,
+      "max_duration": 180,
+      "transition_conditions": [
+        {
+          "condition_type": "event",
+          "condition_value": "second_attack_detected",
+          "operator": "eq"
+        },
+        {
+          "condition_type": "metric",
+          "condition_value": {"attack_count": 2},
+          "operator": "gte"
+        },
+        {
+          "condition_type": "time",
+          "condition_value": 180,
+          "operator": "gte"
+        }
+      ],
+      "required_components": ["enhanced_detector", "mtd_engine"],
+      "mtd_enabled": true,
+      "honeypot_enabled": true,
+      "phase_actions": [
+        {
+          "action": "evaluate_mtd_effectiveness",
+          "parameters": {
+            "comparison_baseline": "phase_2_metrics",
+            "effectiveness_threshold": 0.5
+          }
+        },
+        {
+          "action": "adaptive_response",
+          "parameters": {
+            "response_strategy": "intelligent",
+            "learning_rate": 0.1
+          }
+        }
+      ]
+    },
+    {
+      "phase_id": 7,
+      "name": "Regular Drone Mission",
+      "description": "Execute primary mission with real drones",
+      "min_duration": 120,
+      "max_duration": 600,
+      "transition_conditions": [
+        {
+          "condition_type": "event",
+          "condition_value": "mission_progress_80",
+          "operator": "eq"
+        },
+        {
+          "condition_type": "metric",
+          "condition_value": {"energy_consumption": 0.7},
+          "operator": "lte"
+        },
+        {
+          "condition_type": "time",
+          "condition_value": 600,
+          "operator": "gte"
+        }
+      ],
+      "required_components": ["mission_executor", "energy_monitor"],
+      "mtd_enabled": true,
+      "honeypot_enabled": false,
+      "phase_actions": [
+        {
+          "action": "execute_primary_mission",
+          "parameters": {
+            "mission_type": "surveillance",
+            "coverage_area": "full",
+            "data_collection": true
+          }
+        },
+        {
+          "action": "maintain_security_posture",
+          "parameters": {
+            "alertness_level": "medium",
+            "mtd_frequency": "reduced"
+          }
+        }
+      ]
+    },
+    {
+      "phase_id": 8,
+      "name": "Merge & Completion",
+      "description": "Delay enemy and complete final mission with integration",
+      "min_duration": 60,
+      "max_duration": 180,
+      "transition_conditions": [
+        {
+          "condition_type": "event",
+          "condition_value": "mission_complete",
+          "operator": "eq"
+        },
+        {
+          "condition_type": "metric",
+          "condition_value": {"success_rate": 0.8},
+          "operator": "gte"
+        },
+        {
+          "condition_type": "time",
+          "condition_value": 180,
+          "operator": "gte"
+        }
+      ],
+      "required_components": ["merger", "completion_validator"],
+      "mtd_enabled": false,
+      "honeypot_enabled": false,
+      "phase_actions": [
+        {
+          "action": "consolidate_data",
+          "parameters": {
+            "merge_strategy": "comprehensive",
+            "validation_level": "strict"
+          }
+        },
+        {
+          "action": "generate_mission_report",
+          "parameters": {
+            "include_cti": true,
+            "include_mtd_metrics": true,
+            "include_recommendations": true
+          }
+        },
+        {
+          "action": "prepare_next_cycle",
+          "parameters": {
+            "reset_conditions": true,
+            "update_baselines": true
+          }
+        }
+      ]
+    }
+  ],
+  "global_settings": {
+    "cycle_mode": "continuous",
+    "emergency_transitions": {
+      "critical_attack": {
+        "target_phase": 4,
+        "conditions": {
+          "attack_severity": "critical",
+          "response_time": 10
+        }
+      },
+      "system_failure": {
+        "target_phase": 8,
+        "conditions": {
+          "component_failure_rate": 0.5,
+          "recovery_impossible": true
+        }
+      }
+    },
+    "metrics_collection": {
+      "interval_seconds": 5,
+      "retention_days": 30,
+      "real_time_dashboard": true
+    },
+    "logging": {
+      "level": "INFO",
+      "rotate_size_mb": 100,
+      "max_files": 10
+    }
+  }
+}

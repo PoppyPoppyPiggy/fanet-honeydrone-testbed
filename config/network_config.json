@@ -1,0 +1,413 @@
+{
+  "network_config": {
+    "simulation_area": {
+      "width": 1000,
+      "height": 1000,
+      "altitude_min": 30,
+      "altitude_max": 200
+    },
+    "node_types": {
+      "real_drone": {
+        "default_count": 10,
+        "energy_capacity": 1000,
+        "transmission_power": 20,
+        "mobility": {
+          "model": "RandomWalk2d",
+          "speed_min": 5.0,
+          "speed_max": 15.0
+        }
+      },
+      "honeypot": {
+        "default_count": 5,
+        "energy_capacity": 1200,
+        "transmission_power": 25,
+        "detection_probability": 0.85,
+        "mobility": {
+          "model": "RandomWalk2d",
+          "speed_min": 3.0,
+          "speed_max": 12.0
+        }
+      },
+      "gcs": {
+        "default_count": 1,
+        "energy_capacity": 10000,
+        "transmission_power": 30,
+        "mobility": {
+          "model": "ConstantPosition",
+          "position": [500, 500, 10]
+        }
+      },
+      "relay": {
+        "default_count": 2,
+        "energy_capacity": 2000,
+        "transmission_power": 28,
+        "mobility": {
+          "model": "ConstantPosition"
+        }
+      },
+      "attacker": {
+        "default_count": 2,
+        "energy_capacity": 800,
+        "transmission_power": 22,
+        "mobility": {
+          "model": "RandomWalk2d",
+          "speed_min": 10.0,
+          "speed_max": 20.0
+        }
+      }
+    },
+    "communication": {
+      "wifi_standard": "802.11n",
+      "frequency": 2.4,
+      "channel_width": 20,
+      "propagation_model": "Friis+Nakagami",
+      "interference_model": "enabled"
+    },
+    "energy_model": {
+      "tx_current": 0.0174,
+      "rx_current": 0.0197,
+      "idle_current": 0.0001,
+      "sleep_current": 0.0000
+    }
+  },
+
+  "mtd_config": {
+    "enabled": true,
+    "response_threshold": 0.5,
+    "activation_probability": 0.8,
+    "cost_threshold": 0.3,
+    "actions": {
+      "frequency_hopping": {
+        "enabled": true,
+        "cost": 0.1,
+        "effectiveness": 0.8,
+        "duration": 30,
+        "frequency_range": [2.4, 2.5]
+      },
+      "route_mutation": {
+        "enabled": true,
+        "cost": 0.15,
+        "effectiveness": 0.7,
+        "duration": 60,
+        "mutation_probability": 0.3
+      },
+      "identity_rotation": {
+        "enabled": true,
+        "cost": 0.05,
+        "effectiveness": 0.9,
+        "duration": 45,
+        "rotation_interval": 120
+      },
+      "power_adjustment": {
+        "enabled": true,
+        "cost": 0.2,
+        "effectiveness": 0.6,
+        "duration": 20,
+        "power_range": [0.5, 1.5]
+      },
+      "topology_shuffle": {
+        "enabled": true,
+        "cost": 0.3,
+        "effectiveness": 0.75,
+        "duration": 90,
+        "nodes_affected": 5
+      },
+      "channel_switching": {
+        "enabled": true,
+        "cost": 0.1,
+        "effectiveness": 0.8,
+        "duration": 25,
+        "available_channels": [1, 6, 11]
+      }
+    },
+    "threat_to_action_mapping": {
+      "jamming": ["frequency_hopping", "channel_switching", "power_adjustment"],
+      "spoofing": ["identity_rotation", "route_mutation"],
+      "dos": ["route_mutation", "topology_shuffle", "power_adjustment"],
+      "eavesdropping": ["frequency_hopping", "channel_switching", "identity_rotation"],
+      "mitm": ["route_mutation", "identity_rotation", "topology_shuffle"],
+      "routing_attack": ["route_mutation", "topology_shuffle"],
+      "sybil_attack": ["identity_rotation", "topology_shuffle"]
+    }
+  },
+
+  "cti_config": {
+    "enabled": true,
+    "threat_detection": {
+      "anomaly_threshold": 0.7,
+      "learning_window": 300,
+      "update_interval": 10
+    },
+    "threat_types": {
+      "jamming": {
+        "detection_method": "signal_strength",
+        "baseline_threshold": -85,
+        "anomaly_factor": 2.0
+      },
+      "spoofing": {
+        "detection_method": "identity_verification",
+        "verification_timeout": 30,
+        "false_positive_rate": 0.1
+      },
+      "dos": {
+        "detection_method": "traffic_analysis",
+        "rate_threshold": 1000,
+        "burst_detection": true
+      },
+      "eavesdropping": {
+        "detection_method": "encryption_monitoring",
+        "detection_probability": 0.3
+      },
+      "mitm": {
+        "detection_method": "route_verification",
+        "verification_interval": 60
+      },
+      "routing_attack": {
+        "detection_method": "topology_analysis",
+        "convergence_timeout": 45
+      }
+    },
+    "response_actions": {
+      "immediate": ["isolation", "alert"],
+      "delayed": ["analysis", "mtd_trigger"],
+      "preventive": ["honeypot_activation", "monitoring_increase"]
+    }
+  },
+
+  "phase_config": {
+    "enabled": true,
+    "phases": {
+      "initialization": {
+        "duration": 30,
+        "activities": ["node_deployment", "network_setup", "baseline_establishment"]
+      },
+      "normal_operation": {
+        "duration": 120,
+        "activities": ["regular_communication", "routine_monitoring"]
+      },
+      "under_attack": {
+        "duration": 180,
+        "activities": ["threat_generation", "detection_analysis", "impact_assessment"]
+      },
+      "mtd_active": {
+        "duration": 150,
+        "activities": ["mtd_execution", "effectiveness_measurement", "network_adaptation"]
+      },
+      "recovery": {
+        "duration": 60,
+        "activities": ["damage_assessment", "network_restoration", "lesson_learning"]
+      }
+    },
+    "transition_conditions": {
+      "initialization_to_normal": {
+        "condition": "all_nodes_online",
+        "timeout": 30
+      },
+      "normal_to_attack": {
+        "condition": "threat_detected",
+        "threshold": 1
+      },
+      "attack_to_mtd": {
+        "condition": "mtd_triggered",
+        "delay": 5
+      },
+      "mtd_to_recovery": {
+        "condition": "threat_mitigated",
+        "verification_time": 30
+      },
+      "recovery_to_normal": {
+        "condition": "network_stable",
+        "stability_duration": 60
+      }
+    }
+  },
+
+  "logging_config": {
+    "enabled": true,
+    "log_level": "INFO",
+    "log_rotation": {
+      "enabled": true,
+      "max_size": "100MB",
+      "backup_count": 5
+    },
+    "log_categories": {
+      "simulation": {
+        "enabled": true,
+        "file": "simulation.log"
+      },
+      "network": {
+        "enabled": true,
+        "file": "network.log"
+      },
+      "threats": {
+        "enabled": true,
+        "file": "threats.log"
+      },
+      "mtd": {
+        "enabled": true,
+        "file": "mtd.log"
+      },
+      "performance": {
+        "enabled": true,
+        "file": "performance.log"
+      }
+    }
+  },
+
+  "database_config": {
+    "type": "sqlite",
+    "file": "simulation_trace.db",
+    "tables": {
+      "nodes": {
+        "columns": ["id", "type", "x", "y", "z", "energy_level", "is_compromised", "transmission_power", "frequency", "timestamp"],
+        "indexes": ["id", "timestamp", "type"]
+      },
+      "threats": {
+        "columns": ["id", "type", "source_node", "target_node", "severity", "detected", "mitigated", "timestamp"],
+        "indexes": ["id", "timestamp", "type", "source_node", "target_node"]
+      },
+      "mtd_actions": {
+        "columns": ["id", "action", "target_nodes", "effectiveness", "cost", "success", "timestamp"],
+        "indexes": ["id", "timestamp", "action"]
+      },
+      "simulation_events": {
+        "columns": ["id", "event_type", "description", "phase", "timestamp"],
+        "indexes": ["timestamp", "event_type", "phase"]
+      },
+      "network_stats": {
+        "columns": ["timestamp", "total_packets", "delivered_packets", "throughput", "latency", "energy_consumed"],
+        "indexes": ["timestamp"]
+      }
+    }
+  },
+
+  "visualization_config": {
+    "enabled": true,
+    "real_time": true,
+    "update_interval": 1.0,
+    "chart_types": {
+      "3d_topology": {
+        "enabled": true,
+        "node_size_scaling": true,
+        "threat_visualization": true,
+        "mtd_indicators": true
+      },
+      "network_health": {
+        "enabled": true,
+        "metrics": ["node_status", "energy_levels", "compromised_ratio"]
+      },
+      "threat_timeline": {
+        "enabled": true,
+        "time_window": 300,
+        "threat_types": "all"
+      },
+      "mtd_effectiveness": {
+        "enabled": true,
+        "cost_analysis": true,
+        "success_rate": true
+      }
+    },
+    "export_formats": ["png", "svg", "pdf", "json"],
+    "resolution": {
+      "width": 1920,
+      "height": 1080,
+      "dpi": 300
+    }
+  },
+
+  "test_scenarios": {
+    "basic_test": {
+      "duration": 60,
+      "nodes": {
+        "drones": 5,
+        "honeypots": 2,
+        "attackers": 1
+      },
+      "attack_scenario": "jamming",
+      "mtd_enabled": true
+    },
+    "comprehensive_test": {
+      "duration": 300,
+      "nodes": {
+        "drones": 15,
+        "honeypots": 8,
+        "attackers": 3
+      },
+      "attack_scenario": "mixed",
+      "mtd_enabled": true
+    },
+    "stress_test": {
+      "duration": 600,
+      "nodes": {
+        "drones": 30,
+        "honeypots": 15,
+        "attackers": 8
+      },
+      "attack_scenario": "mixed",
+      "mtd_enabled": true,
+      "high_attack_rate": true
+    },
+    "mtd_evaluation": {
+      "duration": 450,
+      "nodes": {
+        "drones": 20,
+        "honeypots": 10,
+        "attackers": 5
+      },
+      "attack_scenario": "mixed",
+      "mtd_enabled": true,
+      "mtd_strategies": ["all"]
+    }
+  },
+
+  "performance_config": {
+    "monitoring": {
+      "enabled": true,
+      "cpu_monitoring": true,
+      "memory_monitoring": true,
+      "network_monitoring": true
+    },
+    "optimization": {
+      "parallel_processing": true,
+      "thread_count": "auto",
+      "memory_limit": "4GB",
+      "cache_size": "512MB"
+    },
+    "benchmarking": {
+      "enabled": false,
+      "benchmark_interval": 60,
+      "performance_targets": {
+        "simulation_speed": 1.0,
+        "memory_usage": 0.8,
+        "cpu_usage": 0.9
+      }
+    }
+  },
+
+  "integration_config": {
+    "ns3_bridge": {
+      "enabled": true,
+      "communication_port": 9999,
+      "timeout": 30,
+      "retry_attempts": 3
+    },
+    "dashboard": {
+      "enabled": true,
+      "port": 5000,
+      "websocket_port": 8765,
+      "auto_start": false
+    },
+    "external_tools": {
+      "dvds": {
+        "enabled": false,
+        "path": "./external/dvds",
+        "config_file": "dvds_config.json"
+      },
+      "wireshark": {
+        "enabled": false,
+        "capture_interface": "any",
+        "filter": "udp"
+      }
+    }
+  }
+}

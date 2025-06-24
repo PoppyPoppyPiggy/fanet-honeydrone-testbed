@@ -1,0 +1,42 @@
+{
+    "mtd_strategies": {
+      "ip_hopping": {
+        "enabled": true,
+        "frequency_range": [10, 300],
+        "ip_pools": [
+          "192.168.100.0/24",
+          "10.10.0.0/24", 
+          "172.16.0.0/24"
+        ]
+      },
+      "port_shuffling": {
+        "enabled": true,
+        "port_ranges": [[1024, 5000], [5001, 9000], [9001, 65535]],
+        "protected_ports": [22, 80, 443, 14550]
+      },
+      "service_migration": {
+        "enabled": true,
+        "migratable_services": ["http", "ssh", "telnet", "ftp"],
+        "migration_time": 30
+      },
+      "topology_randomization": {
+        "enabled": true,
+        "connectivity_threshold": 0.7,
+        "randomization_degree": 0.3
+      }
+    },
+    "reward_weights": {
+      "successful_defense": 100,
+      "stealth_maintenance": 50,
+      "energy_efficiency": 30,
+      "mission_progress": 70,
+      "false_positive_penalty": -20,
+      "network_disruption_penalty": -50
+    },
+    "learning_parameters": {
+      "episode_length": 3600,
+      "target_update_frequency": 100,
+      "save_frequency": 500,
+      "evaluation_frequency": 50
+    }
+  }

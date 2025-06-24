@@ -1,0 +1,58 @@
+{
+    "analysis_modules": {
+      "payload_analysis": {
+        "enabled": true,
+        "malware_detection": true,
+        "shellcode_detection": true,
+        "obfuscation_detection": true
+      },
+      "network_analysis": {
+        "enabled": true,
+        "traffic_pattern_analysis": true,
+        "c2_detection": true,
+        "dns_analysis": true
+      },
+      "behavioral_analysis": {
+        "enabled": true,
+        "attack_sequence_analysis": true,
+        "persistence_detection": true,
+        "lateral_movement_detection": true
+      },
+      "threat_actor_profiling": {
+        "enabled": true,
+        "ttp_clustering": true,
+        "attribution_analysis": true,
+        "campaign_tracking": true
+      }
+    },
+    "enrichment_sources": {
+      "virustotal": {
+        "enabled": true,
+        "api_key": "",
+        "rate_limit": 4
+      },
+      "urlvoid": {
+        "enabled": true,
+        "api_key": ""
+      },
+      "whois": {
+        "enabled": true
+      },
+      "shodan": {
+        "enabled": false,
+        "api_key": ""
+      }
+    },
+    "thresholds": {
+      "indicator_confidence": 0.7,
+      "technique_confidence": 0.6,
+      "actor_confidence": 0.5,
+      "clustering_eps": 0.3,
+      "clustering_min_samples": 3
+    },
+    "output": {
+      "report_formats": ["json", "stix"],
+      "auto_sharing": false,
+      "sharing_targets": []
+    }
+  }
