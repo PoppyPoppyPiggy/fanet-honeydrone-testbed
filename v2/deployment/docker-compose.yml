@@ -1,0 +1,119 @@
+# deployment/docker-compose.yml
+version: '3.8'
+
+services:
+  # 메인 API 서버
+  api-server:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile.api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../config:/app/config
+      - ../data:/app/data
+      - ../logs:/app/logs
+    environment:
+      - PYTHONPATH=/app
+      - CONFIG_DIR=/app/config
+      - DATA_DIR=/app/data
+      - LOG_LEVEL=INFO
+    depends_on:
+      - database
+      - ns3-simulator
+    networks:
+      - fanet-network
+
+  # 대시보드 웹 서버
+  dashboard:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile.dashboard
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../dashboard:/app
+    environment:
+      - REACT_APP_API_URL=http://api-server:8000
+    depends_on:
+      - api-server
+    networks:
+      - fanet-network
+
+  # NS-3 시뮬레이터
+  ns3-simulator:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile.ns3
+    volumes:
+      - ../ns-allinone-3.40:/opt/ns-allinone-3.40
+      - ../data:/app/data
+    environment:
+      - NS3_PATH=/opt/ns-allinone-3.40/ns-3.40
+    networks:
+      - fanet-network
+
+  # DVDs 시뮬레이터
+  dvds-simulator:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile.dvds
+    volumes:
+      - ../external/dvds:/app/dvds
+      - ../data:/app/data
+    environment:
+      - GAZEBO_MODEL_PATH=/app/dvds/models
+      - ROS_MASTER_URI=http://localhost:11311
+    networks:
+      - fanet-network
+
+  # 데이터베이스
+  database:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: fanet_testbed
+      POSTGRES_USER: fanet_user
+      POSTGRES_PASSWORD: fanet_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../deployment/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - fanet-network
+
+  # Redis (캐싱 및 세션 관리)
+  redis:
+    image: redis:6-alpine
+    networks:
+      - fanet-network
+
+  # 모니터링 (Prometheus)
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ../deployment/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - fanet-network
+
+  # 로그 수집 (Elasticsearch)
+  elasticsearch:
+    image: elasticsearch:7.14.0
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - fanet-network
+
+volumes:
+  postgres_data:
+  elasticsearch_data:
+
+networks:
+  fanet-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

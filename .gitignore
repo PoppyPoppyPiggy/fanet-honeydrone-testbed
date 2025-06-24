@@ -9,6 +9,7 @@ v1/external/dvds/
 
 # Python 가상환경 무시
 v1/venv/
+v2/venv/
 
 # 기타 일반적으로 무시되는 항목들
 __pycache__/
