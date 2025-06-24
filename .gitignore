@@ -2,7 +2,7 @@
 ns-allinone-3.40/
 
 # 외부 리포지토리 또는 기타 링크 파일 무시
-external/
+external/dvds/
 
 # Python 가상환경 무시
 venv/
