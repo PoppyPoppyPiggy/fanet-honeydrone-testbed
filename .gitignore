@@ -1,5 +1,8 @@
 # NS-3 전체 빌드 폴더 무시
-ns-allinone-3.40/
+!/ns-allinone-3.40/build.py
+!/ns-allinone-3.40/constants.py
+!/ns-allinone-3.40/README.md
+!/ns-allinone-3.40/util.py
 
 # 외부 리포지토리 또는 기타 링크 파일 무시
 external/dvds/
