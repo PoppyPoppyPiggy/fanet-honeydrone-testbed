@@ -1,14 +1,14 @@
 # NS-3 전체 빌드 폴더 무시
-!/ns-allinone-3.40/build.py
-!/ns-allinone-3.40/constants.py
-!/ns-allinone-3.40/README.md
-!/ns-allinone-3.40/util.py
+!v1/ns-allinone-3.40/build.py
+!v1/ns-allinone-3.40/constants.py
+!v1/ns-allinone-3.40/README.md
+!v1/ns-allinone-3.40/util.py
 
 # 외부 리포지토리 또는 기타 링크 파일 무시
-external/dvds/
+v1/external/dvds/
 
 # Python 가상환경 무시
-venv/
+v1/venv/
 
 # 기타 일반적으로 무시되는 항목들
 __pycache__/
