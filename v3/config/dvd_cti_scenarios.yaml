@@ -1,0 +1,25 @@
+# DVD 10개 시나리오 설정
+dvd_cti_config:
+  container_name: "damn-vulnerable-drone"
+  simulation_mode: true
+  
+  scenarios:
+    enabled_scenarios:
+      - "1_passive_reconnaissance"
+      - "2_communication_disruption" 
+      - "3_companion_compromise"
+      - "4_gps_spoofing"
+      - "5_mavlink_exploitation"
+      - "6_sensor_deception"
+      - "7_video_intelligence"
+      - "8_resource_exhaustion"
+      - "9_rth_hijacking"
+      - "10_apt_drone_threat"
+    
+    execution_intervals: 30  # 시나리오 간 간격(초)
+    collection_duration: 1800  # 총 수집 시간(30분)
+  
+  output:
+    log_directory: "./dvd_cti_logs"
+    stix_output: "./stix_bundles"
+    reports_directory: "./cti_reports"
