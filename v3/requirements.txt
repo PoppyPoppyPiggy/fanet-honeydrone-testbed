@@ -1,0 +1,148 @@
+# requirements.txt - 논문 작성용 업데이트된 의존성
+
+# 핵심 Python 패키지
+numpy>=1.21.0
+pandas>=1.3.0
+scipy>=1.7.0
+scikit-learn>=1.0.0
+matplotlib>=3.4.0
+seaborn>=0.11.0
+plotly>=5.0.0
+
+# 비동기 처리
+asyncio-mqtt>=0.10.0
+aiofiles>=0.7.0
+aiohttp>=3.8.0
+
+# 웹 프레임워크 및 API
+fastapi>=0.70.0
+uvicorn>=0.15.0
+websockets>=10.0
+pydantic>=1.8.0
+starlette>=0.16.0
+
+# 데이터베이스
+sqlalchemy>=1.4.0
+databases>=0.5.0
+psycopg2-binary>=2.9.0
+redis>=4.0.0
+
+# 네트워킹 및 통신
+pymavlink>=2.4.0
+pyserial>=3.5
+scapy>=2.4.5
+netifaces>=0.11.0
+
+# 강화학습
+torch>=1.9.0
+torchvision>=0.10.0
+gym>=0.21.0
+stable-baselines3>=1.6.0
+tensorboard>=2.7.0
+
+# 컨테이너 및 시뮬레이션
+docker>=5.0.0
+paramiko>=2.8.0
+
+# 보안 및 암호화
+cryptography>=3.4.0
+pycryptodome>=3.12.0
+hashlib-compat>=1.0.0
+
+# 시각화 및 분석
+jupyter>=1.0.0
+ipywidgets>=7.6.0
+bokeh>=2.4.0
+dash>=2.0.0
+
+# 설정 및 로깅
+pyyaml>=6.0
+python-dotenv>=0.19.0
+loguru>=0.5.0
+colorlog>=6.6.0
+
+# 시간 및 날짜
+python-dateutil>=2.8.0
+pytz>=2021.3
+
+# XML/JSON 처리
+xmltodict>=0.12.0
+jsonschema>=4.0.0
+lxml>=4.6.0
+
+# 통계 및 수학
+statsmodels>=0.13.0
+sympy>=1.9.0
+
+# 네트워크 시뮬레이션 (NS-3 연동)
+ns3-python>=3.30
+pygraphviz>=1.7
+
+# CTI 및 보안 분석
+stix2>=3.0.0
+taxii2-client>=2.3.0
+mitre-attack-python>=1.4.0
+yara-python>=4.2.0
+
+# 멀티미디어 및 센서 데이터
+opencv-python>=4.5.0
+pillow>=8.3.0
+librosa>=0.8.0
+
+# 테스팅
+pytest>=6.2.0
+pytest-asyncio>=0.16.0
+pytest-cov>=3.0.0
+hypothesis>=6.24.0
+
+# 코드 품질
+black>=21.9b0
+flake8>=4.0.0
+mypy>=0.910
+isort>=5.9.0
+
+# 문서화
+sphinx>=4.2.0
+sphinx-rtd-theme>=1.0.0
+mkdocs>=1.2.0
+
+# 유틸리티
+tqdm>=4.62.0
+click>=8.0.0
+rich>=10.12.0
+tabulate>=0.8.0
+
+# 개발 도구
+ipython>=7.28.0
+jupyterlab>=3.2.0
+notebook>=6.4.0
+
+# 추가 과학 계산
+numba>=0.54.0
+cython>=0.29.0
+
+# 클라우드 및 배포
+kubernetes>=18.20.0
+boto3>=1.18.0
+
+# 모니터링
+prometheus-client>=0.11.0
+psutil>=5.8.0
+
+# 추가 네트워킹
+requests>=2.26.0
+urllib3>=1.26.0
+httpx>=0.24.0
+
+# 데이터 직렬화
+pickle5>=0.0.11
+msgpack>=1.0.0
+
+# 멀티프로세싱
+multiprocessing-logging>=0.3.0
+joblib>=1.1.0
+
+# 기타 유틸리티
+argparse>=1.4.0
+configparser>=5.0.0
+pathlib2>=2.3.0

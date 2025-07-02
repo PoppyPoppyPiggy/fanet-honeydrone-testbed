@@ -1,0 +1,14 @@
+DVD_ATTACK_SCENARIOS = {
+    "basic_penetration_test": {
+        "description": "기본 침투 테스트 시나리오",
+        "attacks": [
+            {
+                "type": "wifi_deauth",
+                "target_node": "drone_0",
+                "target_mac": "aa:bb:cc:dd:ee:ff",
+                "ap_mac": "11:22:33:44:55:66",
+                "interface": "wlan0",
+                "count": 50,
+                "delay": 0
+            },
+        }}

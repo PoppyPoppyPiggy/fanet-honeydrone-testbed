@@ -1,0 +1,69 @@
+# DVD 연동 설정 파일
+# config/dvd_integration.yaml
+
+DVD_INTEGRATION_CONFIG = """
+# DVD 통합 설정
+dvd_integration:
+  # DVD 시뮬레이터 연결 설정
+  connection:
+    host: "localhost"
+    port: 14550
+    protocol: "udp"
+    timeout: 30
+    
+  # Gazebo 시뮬레이션 설정
+  gazebo:
+    world_file: "iris_runway.world"
+    model_path: "/opt/dvds/models"
+    plugin_path: "/opt/dvds/plugins"
+    
+  # ArduPilot SITL 설정
+  ardupilot:
+    vehicle_type: "copter"
+    frame_type: "quad"
+    home_location: "37.7749,-122.4194,100,0"
+    speedup: 1
+    
+  # QGroundControl 연동
+  qgc:
+    comm_port: 14550
+    video_port: 5600
+    enable_telemetry: true
+    
+# 공격 시나리오 설정
+attack_scenarios:
+  # 기본 공격 매개변수
+  default_params:
+    duration: 60  # 초
+    stealth_mode: false
+    log_level: "INFO"
+    
+  # GPS 스푸핑 설정
+  gps_spoofing:
+    signal_power: -80  # dBm
+    satellite_count: 12
+    accuracy_degradation: 0.1  # meters
+    
+  # MAVLink 공격 설정  
+  mavlink_injection:
+    target_system: 1
+    target_component: 1
+    command_timeout: 5
+    
+  # Wi-Fi 공격 설정
+  wifi_attacks:
+    interface: "wlan0"
+    monitor_mode: true
+    channel_hopping: true
+    
+# 로깅 및 모니터링
+logging:
+  attack_logs: "logs/dvd_attacks.log"
+  mavlink_logs: "logs/mavlink_traffic.log"
+  network_logs: "logs/network_capture.pcap"
+  
+monitoring:
+  real_time_analysis: true
+  threat_detection: true
+  performance_metrics: true
+"""
