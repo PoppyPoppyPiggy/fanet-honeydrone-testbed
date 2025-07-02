@@ -141,26 +141,26 @@ docker-compose -f deployment/docker-compose.yml up -d
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                        통합 테스트베드 아키텍처                          │
+│                        통합 테스트베드 아키텍처                       │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
-│  ┌──────────────┐    ┌──────────────┐    ┌──────────────────────┐    │
-│  │ Honeydrone   │◄──►│ MTD          │◄──►│ DVDs Simulator       │    │
-│  │ Network      │    │ Simulator    │    │ (Gazebo/ArduPilot)   │    │
-│  │              │    │              │    │                      │    │
-│  │ - SDN Ctrl   │    │ - Manager    │    │ - QGroundControl     │    │
-│  │ - NS-3 FANET │    │ - Policies   │    │ - MAVLink Protocol   │    │
-│  │ - 6 Nodes    │    │ - RL Engine  │    │ - Physics Simulation │    │
-│  └──────────────┘    └──────────────┘    └──────────────────────┘    │
-│           │                    │                         │            │
-│           └────────────────────┼─────────────────────────┘            │
-│                                │                                      │
-│  ┌─────────────────────────────┴─────────────────────────────────┐    │
-│  │                    NS-3 Network Simulator                    │    │
-│  │  - Packet Level Simulation                                   │    │
-│  │  - FANET Mobility Models                                     │    │
-│  │  - TAP Bridge Interface                                      │    │
-│  └───────────────────────────────────────────────────────────────┘    │
+│  ┌──────────────┐    ┌──────────────┐    ┌──────────────────────┐   │
+│  │ Honeydrone   │◄──►│ MTD          │◄──►│ DVDs Simulator       │   │
+│  │ Network      │    │ Simulator    │    │ (Gazebo/ArduPilot)   │   │
+│  │              │    │              │    │                      │   │
+│  │ - SDN Ctrl   │    │ - Manager    │    │ - QGroundControl     │   │
+│  │ - NS-3 FANET │    │ - Policies   │    │ - MAVLink Protocol   |   │
+│  │ - 6 Nodes    │    │ - RL Engine  │    │ - Physics Simulation │   │
+│  └──────────────┘    └──────────────┘    └──────────────────────┘   │
+│           │                    │                         │          │
+│           └────────────────────┼─────────────────────────┘          │
+│                                │                                    │
+│  ┌─────────────────────────────┴─────────────────────────────────┐  │
+│  │                    NS-3 Network Simulator                     │  │
+│  │  - Packet Level Simulation                                    │  │
+│  │  - FANET Mobility Models                                      |  │
+│  │  - TAP Bridge Interface                                       │  │
+│  └───────────────────────────────────────────────────────────────┘  │
 │                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
 ```
